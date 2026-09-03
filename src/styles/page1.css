@@ -1,0 +1,318 @@
+/* Page 1 - Entrance Screen Visual Styles */
+.page1-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3rem 1.5rem 4rem 1.5rem;
+}
+
+/* Header & Typography Section */
+.p1-header-group {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 3;
+}
+
+.p1-main-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-white);
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+  animation: fadeInDown 1.2s var(--ease-out-expo) forwards;
+}
+
+.p1-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--color-cyan-soft);
+  opacity: 0.9;
+  letter-spacing: 0.2px;
+  text-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+  animation: fadeInUp 1.4s var(--ease-out-expo) forwards;
+}
+
+/* Central Glowing Interactive Crystal Orb Container */
+.p1-orb-wrapper {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* Ambient Outer Cyan Glow Halo */
+.p1-orb-halo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-cyan-glow) 0%, rgba(0, 242, 254, 0) 70%);
+  filter: blur(24px);
+  animation: floatBreathing 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* Interactive Central Glowing Core Orb */
+.p1-orb-core {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    var(--color-cyan) 35%, 
+    var(--color-navy-deep) 85%);
+  box-shadow: 0 0 40px var(--color-cyan-glow),
+              inset 0 0 25px rgba(255, 255, 255, 0.8),
+              0 0 80px rgba(0, 242, 254, 0.3);
+  animation: floatOrb 5s ease-in-out infinite alternate;
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+}
+
+.p1-orb-wrapper:active .p1-orb-core {
+  transform: scale(1.12);
+  box-shadow: 0 0 60px var(--color-cyan),
+              inset 0 0 35px rgba(255, 255, 255, 1);
+}
+
+/* Dynamic Cyan Sparkle Accent Ring around Orb */
+.p1-orb-ring {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 242, 254, 0.35);
+  animation: spinRing 20s linear infinite;
+  pointer-events: none;
+}
+
+/* Touch-Friendly ENTER Button */
+.p1-button-wrapper {
+  margin-bottom: 2rem;
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-enter {
+  position: relative;
+  min-width: 220px;
+  min-height: var(--min-touch-target);
+  padding: 16px 42px;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--color-white);
+  background: var(--glass-bg);
+  border: 1px solid rgba(0, 242, 254, 0.5);
+  border-radius: 50px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 20px var(--color-cyan-glow);
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease-out-expo),
+              box-shadow 0.25s var(--ease-out-expo),
+              border-color 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-enter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 242, 254, 0.35), 
+    transparent);
+  transition: left 0.75s ease;
+}
+
+.btn-enter:active {
+  transform: scale(0.95);
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 35px var(--color-cyan);
+}
+
+/* Touch Ripple Glow Effect */
+.btn-enter .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.8) 0%, rgba(0, 242, 254, 0) 70%);
+  transform: scale(0);
+  animation: rippleAnim 0.7s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Keyframe Animations */
+@keyframes floatBreathing {
+  0% { transform: scale(0.92); opacity: 0.4; }
+  100% { transform: scale(1.15); opacity: 0.85; }
+}
+
+@keyframes floatOrb {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+  100% { transform: translateY(6px) rotate(-3deg); }
+}
+
+@keyframes spinRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rippleAnim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Stage 2 / Interactive Exploration Screen Styles */
+.p2-placeholder-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3rem 1.5rem 4rem 1.5rem;
+}
+
+.p2-content-group {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.p2-mystery-text {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-white);
+  text-shadow: 0 0 25px var(--color-cyan-glow);
+  line-height: 1.3;
+  animation: pulseGlow 3s ease-in-out infinite alternate;
+}
+
+.p2-subtext {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-cyan-soft);
+  max-width: 320px;
+}
+
+/* Page 2 Interactive Star Element */
+.p2-star-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.p2-star-wrapper:active {
+  transform: scale(0.92);
+}
+
+.p2-star-halo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-lavender-glow) 0%, rgba(230, 230, 250, 0) 70%);
+  filter: blur(20px);
+  animation: floatBreathing 3.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.p2-star-core {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 0 20px var(--color-cyan));
+  animation: floatOrb 4s ease-in-out infinite alternate;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.p2-star-wrapper.discovered .p2-star-core {
+  transform: scale(1.25) rotate(360deg);
+  filter: drop-shadow(0 0 35px var(--color-butter-yellow));
+}
+
+/* Secret Revealed Message Card */
+.p2-reveal-card {
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.75rem;
+  background: var(--glass-bg);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  max-width: 360px;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+}
+
+.p2-reveal-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.p2-reveal-card.hidden {
+  display: none;
+}
+
+.p2-reveal-text {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-white-muted);
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.8; text-shadow: 0 0 15px var(--color-cyan-glow); }
+  100% { opacity: 1; text-shadow: 0 0 35px var(--color-cyan), 0 0 10px var(--color-white); }
+}

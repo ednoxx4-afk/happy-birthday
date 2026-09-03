@@ -1,0 +1,75 @@
+:root {
+  /* Color Palette - User's 11 Favorite Colors */
+  --color-navy-dark: #060913;
+  --color-navy-deep: #0a1128;
+  --color-navy-mid: #121b3b;
+
+  --color-cyan: #00f2fe;
+  --color-cyan-glow: rgba(0, 242, 254, 0.45);
+  --color-cyan-soft: #70e4ef;
+
+  --color-olive: #708238;
+  --color-olive-soft: #8da04e;
+
+  --color-cherry: #800020;
+  --color-cherry-glow: rgba(128, 0, 32, 0.6);
+
+  --color-pastel-green: #a8e6cf;
+  --color-pastel-green-soft: #c8f7dc;
+
+  --color-pink-soft: #ffd3e2;
+  --color-pink-mid: #ff85a2;
+  --color-pink-deep: #ff3366;
+
+  --color-butter-yellow: #fffdd0;
+  --color-butter-yellow-glow: rgba(255, 253, 208, 0.4);
+
+  --color-lavender: #e6e6fa;
+  --color-lavender-glow: rgba(230, 230, 250, 0.4);
+
+  --color-woody-brown: #6b4226;
+  --color-woody-warm: #8b5a2b;
+
+  --color-white: #ffffff;
+  --color-white-muted: rgba(255, 255, 255, 0.75);
+  --color-white-dim: rgba(255, 255, 255, 0.45);
+
+  --color-emerald: #50c878;
+  --color-emerald-glow: rgba(80, 200, 120, 0.4);
+
+  /* Page 3+ Birthday Warm Aesthetic Palette */
+  --color-pink-blush: #f8c8dc;
+  --color-pink-baby: #f4c2c2;
+  --color-rose-soft: #e88d9b;
+  --color-peach-warm: #ffdab9;
+  --color-cream-warm: #fff8f0;
+  --color-gold-champagne: #f7e7ce;
+  --color-gold-accent: #d4af37;
+  --color-gold-glow: rgba(212, 175, 55, 0.35);
+  
+  --glass-bg-warm: rgba(45, 20, 35, 0.75);
+  --glass-border-warm: rgba(255, 182, 193, 0.3);
+  --glass-shadow-warm: 0 12px 32px 0 rgba(255, 133, 162, 0.25);
+
+  /* Fonts */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Mobile & Safe Area Standards */
+  --safe-area-top: env(safe-area-inset-top, 20px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 20px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  
+  --min-touch-target: 54px;
+
+  /* Glassmorphism Styles */
+  --glass-bg: rgba(10, 17, 40, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-blur: blur(16px);
+
+  /* Smooth Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}

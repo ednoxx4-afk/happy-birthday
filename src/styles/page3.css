@@ -1,0 +1,285 @@
+/* ==========================================================================
+   Page 3 - The Personal Birthday Entrance
+   Warm Birthday Aesthetic: Blush pink, rose, soft peach, warm cream, champagne gold
+   ========================================================================== */
+
+.page3-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  z-index: 5;
+  gap: 1.5rem;
+}
+
+/* Header Group */
+.p3-header-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: p3FadeInUp 0.8s var(--ease-out-expo) forwards 0.2s;
+}
+
+.p3-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-pink-blush);
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+}
+
+.p3-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-peach-warm);
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+}
+
+/* Interactive 3D Envelope Wrapper */
+.p3-envelope-wrapper {
+  position: relative;
+  width: 290px;
+  height: 200px;
+  margin: 1rem 0;
+  cursor: pointer;
+  perspective: 1000px;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  animation: p3FadeInUp 0.9s var(--ease-out-expo) forwards 0.5s;
+  user-select: none;
+}
+
+.p3-envelope-wrapper:hover .p3-envelope-body {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(255, 133, 162, 0.35), 0 0 20px rgba(247, 231, 206, 0.3);
+}
+
+.p3-envelope-wrapper:active .p3-envelope-body {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Outer Envelope Body Structure */
+.p3-envelope-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 230, 238, 0.95) 0%, rgba(248, 200, 220, 0.9) 100%);
+  border: 1.5px solid rgba(247, 231, 206, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(232, 141, 155, 0.25), 0 0 16px rgba(255, 255, 255, 0.4);
+  transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s ease;
+  overflow: visible;
+}
+
+/* Flap top triangle */
+.p3-envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 145px solid transparent;
+  border-right: 145px solid transparent;
+  border-top: 100px solid rgba(255, 218, 185, 0.95);
+  transform-origin: top center;
+  transition: transform 0.6s var(--ease-out-expo), border-top-color 0.4s ease;
+  z-index: 3;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.1));
+}
+
+/* Side Pockets overlay */
+.p3-envelope-pocket {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(232, 141, 155, 0.25) 0%, transparent 60%);
+  border-radius: 0 0 16px 16px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Wax Seal Badge */
+.p3-wax-seal {
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #e88d9b 0%, #d47382 100%);
+  border: 1px solid #f7e7ce;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(212, 115, 130, 0.4);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.p3-wax-seal .seal-heart {
+  font-size: 0.9rem;
+  animation: pulseHeart 1.6s ease-in-out infinite;
+}
+
+/* Letter Content Paper Container */
+.p3-letter-paper {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  background: linear-gradient(180deg, #fff8f0 0%, #fff0f5 100%);
+  border: 1px dashed rgba(232, 141, 155, 0.3);
+  border-radius: 12px;
+  padding: 1.25rem 1rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateY(20px) scale(0.92);
+  transition: transform 0.7s var(--ease-out-expo) 0.2s, opacity 0.6s ease 0.2s;
+  pointer-events: none;
+}
+
+/* OPENED ENVELOPE STATE ANIMATIONS */
+.p3-envelope-wrapper.opened .p3-envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.p3-envelope-wrapper.opened .p3-wax-seal {
+  opacity: 0;
+  transform: translateX(-50%) scale(0.5);
+  pointer-events: none;
+}
+
+.p3-envelope-wrapper.opened .p3-letter-paper {
+  opacity: 1;
+  transform: translateY(-85px) scale(1.08);
+  z-index: 10;
+  height: 240px;
+  pointer-events: auto;
+  box-shadow: 0 16px 40px rgba(232, 141, 155, 0.3), 0 0 24px rgba(255, 255, 255, 0.8);
+}
+
+/* Revealed Message Styling */
+.p3-message-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+.p3-msg-line {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #5c2f38;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.p3-msg-line.line-1.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.p3-msg-line.line-2 {
+  color: #8c3a4a;
+  font-weight: 600;
+}
+.p3-msg-line.line-2.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.p3-msg-line.line-3 {
+  color: #d47382;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+.p3-msg-line.line-3.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Continue Interactive Button */
+.p3-continue-wrapper {
+  margin-top: 0.5rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+  pointer-events: none;
+}
+
+.p3-continue-wrapper.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.btn-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #f8c8dc 0%, #e88d9b 100%);
+  border: 1.5px solid #f7e7ce;
+  border-radius: 28px;
+  color: #4a1d26;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(232, 141, 155, 0.35);
+  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s ease;
+  min-height: 52px;
+}
+
+.btn-continue:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(232, 141, 155, 0.45);
+}
+
+.btn-continue:active {
+  transform: translateY(0) scale(0.97);
+}
+
+@keyframes p3FadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseHeart {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}

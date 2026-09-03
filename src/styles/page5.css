@@ -1,0 +1,645 @@
+/* ==========================================
+   Page 5 - Immersive Dreamy Night Room Hidden-Object Game
+   Theme: Dreamy Night Room (Midnight Blue, Deep Purple, Lavender, Golden Fairy Lights, Moonlight)
+   ========================================== */
+
+.page5-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  padding: calc(var(--safe-area-top) + 0.6rem) 1rem calc(var(--safe-area-bottom) + 1.2rem);
+  box-sizing: border-box;
+  color: #fff8e7;
+  position: relative;
+  overflow-x: hidden;
+  z-index: 2;
+  background: radial-gradient(circle at 50% 20%, #1d1135 0%, #0d153a 65%, #050816 100%);
+}
+
+/* Header Group */
+.p5-header-group {
+  text-align: center;
+  margin-bottom: 0.6rem;
+  animation: p5FadeDown 0.8s var(--ease-out-expo) forwards;
+}
+
+.p5-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e6e6fa 50%, #ffdf80 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.2rem 0;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 20px rgba(255, 223, 128, 0.3);
+}
+
+.p5-subtitle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.p5-sub {
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 3.4vw, 0.9rem);
+  color: #d1c4e9;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Status & Hint Control Bar */
+.p5-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 0.6rem;
+  padding: 0 4px;
+}
+
+.p5-progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgba(255, 223, 128, 0.12);
+  border: 1px solid rgba(255, 223, 128, 0.3);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffdf80;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.p5-progress-badge.completed {
+  background: rgba(255, 215, 0, 0.25);
+  border-color: #ffd700;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(255, 215, 0, 0.4);
+}
+
+.btn-p5-hint {
+  background: rgba(180, 160, 235, 0.15);
+  border: 1px solid rgba(180, 160, 235, 0.35);
+  border-radius: 20px;
+  padding: 5px 12px;
+  color: #e6e6fa;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-p5-hint:active {
+  transform: scale(0.95);
+}
+
+/* Environmental Evolution Toast Notice */
+.p5-toast-notice {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 223, 128, 0.9);
+  color: #1d1135;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(255, 223, 128, 0.5);
+  z-index: 10;
+  pointer-events: none;
+  animation: p5ToastPop 3s ease forwards;
+}
+
+/* ==========================================
+   Cozy Moonlit Room Scene Viewport
+   ========================================== */
+.p5-room-scene {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: clamp(380px, 54vh, 460px);
+  background: linear-gradient(170deg, #150d2a 0%, #0d1538 50%, #080c1f 100%);
+  border: 1.5px solid rgba(230, 230, 250, 0.25);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6), 0 16px 40px rgba(8, 12, 31, 0.6);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: filter 0.6s ease, border-color 0.6s ease;
+}
+
+/* Room Evolution Stages */
+.p5-room-scene.evolved-stage-1 {
+  background: radial-gradient(circle at 75% 25%, #2a1848 0%, #111a44 60%, #080c1f 100%);
+  border-color: rgba(255, 223, 128, 0.4);
+}
+
+.p5-room-scene.evolved-stage-2 {
+  background: radial-gradient(circle at 75% 25%, #351c58 0%, #152256 55%, #0a0e28 100%);
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: inset 0 0 50px rgba(255, 223, 128, 0.2), 0 16px 45px rgba(255, 215, 0, 0.25);
+}
+
+.p5-room-scene.dimmed-for-key {
+  filter: brightness(0.65);
+}
+
+/* Fairy Lights String Across Ceiling */
+.p5-fairy-lights {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.p5-light-bulb {
+  width: 8px;
+  height: 8px;
+  background: #ffdf80;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffdf80, 0 0 20px #ffdf80;
+  opacity: 0.5;
+  transition: opacity 0.8s ease, box-shadow 0.8s ease;
+}
+
+.p5-room-scene.evolved-stage-1 .p5-light-bulb,
+.p5-room-scene.evolved-stage-2 .p5-light-bulb {
+  opacity: 1;
+  box-shadow: 0 0 14px #ffd700, 0 0 28px #ffd700;
+  animation: p5LightGlow 2s ease-in-out infinite alternate;
+}
+
+/* Window & Sky View (Top Right) */
+.p5-window-view {
+  position: absolute;
+  top: 24px;
+  right: 20px;
+  width: 110px;
+  height: 120px;
+  background: radial-gradient(circle at 70% 30%, #1c265a 0%, #0a0f28 100%);
+  border: 3px solid rgba(230, 230, 250, 0.3);
+  border-radius: 50px 50px 12px 12px;
+  overflow: hidden;
+  box-shadow: inset 0 0 15px rgba(255, 223, 128, 0.15), 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.p5-moon {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  font-size: 1.6rem;
+  filter: drop-shadow(0 0 10px rgba(255, 248, 231, 0.8));
+}
+
+.p5-sky-stars {
+  position: absolute;
+  inset: 0;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+/* Wall Photos String (Top Left) */
+.p5-wall-photos-string {
+  position: absolute;
+  top: 35px;
+  left: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.p5-decor-photo {
+  width: 32px;
+  height: 38px;
+  background: #fff8e7;
+  border-radius: 4px;
+  padding: 3px 3px 8px 3px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transform: rotate(-5deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.p5-decor-photo:nth-child(2) {
+  transform: rotate(6deg);
+}
+
+/* Desk & Accessories (Middle Right) */
+.p5-desk-graphic {
+  position: absolute;
+  top: 170px;
+  right: 16px;
+  width: 140px;
+  height: 100px;
+  background: linear-gradient(135deg, rgba(60, 40, 90, 0.5), rgba(30, 20, 50, 0.6));
+  border-top: 3px solid rgba(230, 230, 250, 0.3);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.p5-lamp {
+  position: absolute;
+  top: -38px;
+  left: 14px;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 12px rgba(255, 223, 128, 0.7));
+}
+
+.p5-books {
+  position: absolute;
+  top: -20px;
+  right: 20px;
+  font-size: 1.2rem;
+}
+
+/* Bed & Cozy Area (Bottom Left) */
+.p5-bed-graphic {
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  width: 190px;
+  height: 135px;
+  background: linear-gradient(135deg, rgba(80, 50, 110, 0.6), rgba(40, 25, 70, 0.7));
+  border-radius: 24px 24px 0 0;
+  border-top: 4px solid rgba(255, 211, 226, 0.4);
+  box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+.p5-pillow-left {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  width: 60px;
+  height: 36px;
+  background: rgba(255, 248, 231, 0.25);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.p5-pillow-right {
+  position: absolute;
+  top: 12px;
+  left: 85px;
+  width: 60px;
+  height: 36px;
+  background: rgba(230, 230, 250, 0.25);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Chair / Corner Cushion (Bottom Right) */
+.p5-chair-graphic {
+  position: absolute;
+  bottom: 10px;
+  right: 18px;
+  width: 100px;
+  height: 90px;
+  background: linear-gradient(135deg, rgba(70, 45, 95, 0.5), rgba(35, 20, 55, 0.6));
+  border-radius: 20px 20px 0 0;
+  border-top: 3px solid rgba(212, 175, 55, 0.3);
+  z-index: 3;
+}
+
+/* ==========================================
+   Hidden Interactive Targets (Expanded Hitboxes)
+   ========================================== */
+.p5-target-hitbox {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s var(--ease-out-expo);
+}
+
+.p5-target-hitbox:active {
+  transform: scale(0.9);
+}
+
+/* Visible Camouflaged Graphics */
+.p5-target-icon {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+  animation: p5SubtlePulse 3.5s ease-in-out infinite alternate;
+}
+
+/* Specific Target Placements */
+/* 1. Envelope: Tucked beside bed pillow */
+.p5-target-envelope {
+  bottom: 82px;
+  left: 65px;
+}
+.p5-target-envelope .p5-target-icon {
+  font-size: 1.25rem;
+  transform: rotate(-15deg);
+}
+
+/* 2. Flower: Inside vase on desk */
+.p5-target-flower {
+  top: 135px;
+  right: 35px;
+}
+.p5-target-flower .p5-target-icon {
+  font-size: 1.3rem;
+}
+
+/* 3. Star: Near window sky */
+.p5-target-star {
+  top: 45px;
+  right: 50px;
+}
+.p5-target-star .p5-target-icon {
+  font-size: 1.25rem;
+  color: #ffdf80;
+}
+
+/* 4. Ribbon: Tied on desk lamp/handle */
+.p5-target-ribbon {
+  top: 175px;
+  right: 110px;
+}
+.p5-target-ribbon .p5-target-icon {
+  font-size: 1.25rem;
+}
+
+/* 5. Teddy: Sitting on cozy chair */
+.p5-target-teddy {
+  bottom: 30px;
+  right: 40px;
+}
+.p5-target-teddy .p5-target-icon {
+  font-size: 1.5rem;
+}
+
+/* 6. Polaroid: Among wall photo string */
+.p5-target-polaroid {
+  top: 25px;
+  left: 80px;
+}
+.p5-target-polaroid .p5-target-icon {
+  font-size: 1.3rem;
+}
+
+/* Found Target Visual State */
+.p5-target-hitbox.found .p5-target-icon {
+  filter: drop-shadow(0 0 12px #ffd700);
+  animation: p5FoundGlow 2s ease-in-out infinite alternate;
+}
+
+.p5-target-hitbox.found::after {
+  content: '✓';
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  background: #ffd700;
+  color: #1d1135;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* Golden Key Stage Overlay inside Stage */
+.p5-key-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 21, 58, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  animation: p5PopUp 0.6s var(--ease-out-expo) forwards;
+}
+
+.p5-key-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffdf80;
+  margin-bottom: 0.3rem;
+}
+
+.p5-key-subtext {
+  font-size: 0.88rem;
+  color: #d1c4e9;
+  margin-bottom: 1.2rem;
+}
+
+.p5-golden-key-btn {
+  width: 84px;
+  height: 84px;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  border: 2.5px solid #fff8e7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  cursor: pointer;
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+  animation: p5KeyPulse 1.8s ease-in-out infinite alternate;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.p5-golden-key-btn:active {
+  transform: scale(0.92);
+}
+
+/* Modals & Overlays */
+.p5-modal-backdrop.hidden,
+.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.p5-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 8, 20, 0.84);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  animation: p5FadeIn 0.35s ease forwards;
+}
+
+.p5-modal-card {
+  background: linear-gradient(160deg, rgba(35, 20, 55, 0.95) 0%, rgba(15, 12, 35, 0.98) 100%);
+  border: 1.5px solid rgba(255, 223, 128, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(180, 160, 235, 0.25);
+  border-radius: 28px;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+  animation: p5PopUp 0.4s var(--ease-out-expo) forwards;
+}
+
+.p5-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffdf80;
+  margin-bottom: 0.8rem;
+}
+
+.p5-modal-body {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #fff8e7;
+  margin-bottom: 1.75rem;
+  white-space: pre-line;
+}
+
+.p5-final-card {
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 45px rgba(255, 215, 0, 0.5), 0 20px 60px rgba(0, 0, 0, 0.7);
+  animation: p5CelebratePop 0.6s var(--ease-out-expo) forwards;
+}
+
+.p5-final-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 6vw, 1.8rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff8e7, #ffd700, #e6e6fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+/* Action Buttons */
+.btn-p5-action {
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 223, 128, 0.35);
+  background: linear-gradient(135deg, rgba(180, 160, 235, 0.3), rgba(255, 223, 128, 0.2));
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  min-height: var(--min-touch-target);
+  min-width: 105px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-p5-action:active {
+  transform: scale(0.95);
+}
+
+.btn-p5-next {
+  background: linear-gradient(135deg, #ffd700, #ffdf80);
+  color: #1d1135;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Keyframe Animations */
+@keyframes p5SubtlePulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+@keyframes p5FoundGlow {
+  0% { transform: scale(1); filter: drop-shadow(0 0 8px #ffd700); }
+  100% { transform: scale(1.1); filter: drop-shadow(0 0 16px #ffd700); }
+}
+
+@keyframes p5LightGlow {
+  0% { opacity: 0.6; box-shadow: 0 0 10px #ffd700; }
+  100% { opacity: 1; box-shadow: 0 0 22px #ffd700; }
+}
+
+@keyframes p5KeyPulse {
+  0% { transform: scale(1); box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); }
+  100% { transform: scale(1.08); box-shadow: 0 0 45px rgba(255, 215, 0, 0.9); }
+}
+
+@keyframes p5ToastPop {
+  0% { opacity: 0; transform: translate(-50%, -10px); }
+  15% { opacity: 1; transform: translate(-50%, 0); }
+  85% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+
+@keyframes p5FadeDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes p5FadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes p5PopUp {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes p5CelebratePop {
+  0% { opacity: 0; transform: scale(0.7) rotate(-3deg); }
+  70% { transform: scale(1.04) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}

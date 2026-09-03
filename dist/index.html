@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#060913" />
+  <title>A Special Journey ✨</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  
+  <!-- App Styles -->
+  <link rel="stylesheet" crossorigin href="/assets/index-Z4kwNyLA.css">
+</head>
+<body>
+  <!-- Fullscreen Particle Canvas Background -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Audio Visualizer / Music Control Indicator (Minimal floating badge) -->
+  <div id="audio-control-badge" class="audio-badge hidden">
+    <div class="equalizer">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <span id="current-track-name" class="track-name">Risk It All</span>
+  </div>
+
+  <!-- Main Dynamic Experience Container -->
+  <main id="app" class="app-container"></main>
+
+  <!-- Application Modules (Compatible with direct file:// opening & local web servers) -->
+  <script src="./src/core/AudioManager.js"></script>
+  <script src="./src/core/ParticleSystem.js"></script>
+  <script src="./src/core/PageManager.js"></script>
+  <script src="./src/pages/Page1.js"></script>
+  <script src="./src/pages/Page2Placeholder.js"></script>
+  <script src="./src/main.js"></script>
+</body>
+</html>

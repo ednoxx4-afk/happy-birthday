@@ -1,0 +1,326 @@
+/* ==========================================
+   Page 6 - Quiet Midnight Memory Universe
+   Theme: 'midnight-constellation' (Deep Midnight Navy, Dark Indigo, Rich Purple, Soft Lavender, Golden Stars)
+   ========================================== */
+
+.page6-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  padding: calc(var(--safe-area-top) + 0.8rem) 1.25rem calc(var(--safe-area-bottom) + 1.5rem);
+  box-sizing: border-box;
+  color: #e6e6fa;
+  position: relative;
+  overflow-x: hidden;
+  z-index: 2;
+  background: radial-gradient(ellipse at 50% 25%, #161a3c 0%, #0a0f28 65%, #040614 100%);
+}
+
+/* Header Section */
+.p6-header-group {
+  text-align: center;
+  margin-bottom: 0.6rem;
+  animation: p6FadeDown 0.8s var(--ease-out-expo) forwards;
+}
+
+.p6-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 5.2vw, 2.0rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e6e6fa 50%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.3rem 0;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 22px rgba(255, 215, 0, 0.3);
+}
+
+.p6-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.8rem, 3.5vw, 0.92rem);
+  color: #b8b2e6;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Progress Tracker Indicator */
+.p6-progress-tracker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 15px;
+  background: rgba(230, 230, 250, 0.08);
+  border: 1px solid rgba(230, 230, 250, 0.25);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 1.2rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.p6-progress-tracker.completed {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: #ffd700;
+  box-shadow: 0 4px 18px rgba(255, 215, 0, 0.35);
+}
+
+/* Constellation Stage */
+.p6-constellation-stage {
+  position: relative;
+  width: 100%;
+  max-width: 370px;
+  height: clamp(340px, 48vh, 400px);
+  margin: 0 auto 1.2rem;
+}
+
+/* SVG Line Connections Layer */
+.p6-constellation-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.p6-const-line {
+  stroke: rgba(230, 230, 250, 0.2);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  transition: stroke 0.6s ease, stroke-width 0.6s ease;
+}
+
+.p6-const-line.active {
+  stroke: #ffd700;
+  stroke-dasharray: none;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
+}
+
+/* Floating Memory Nodes */
+.p6-node {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(23, 17, 44, 0.65);
+  border: 1.5px solid rgba(230, 230, 250, 0.3);
+  border-radius: 30px;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(230, 230, 250, 0.15);
+  transition: transform 0.3s var(--ease-out-expo), border-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  animation: p6NodeFloat 4s ease-in-out infinite alternate;
+}
+
+.p6-node:nth-child(1) { animation-delay: 0s; }
+.p6-node:nth-child(2) { animation-delay: 1.3s; }
+.p6-node:nth-child(3) { animation-delay: 2.6s; }
+
+.p6-node:active {
+  transform: scale(0.94) !important;
+}
+
+.p6-node-star {
+  color: #ffd700;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Node Opened / Illuminated State */
+.p6-node.opened {
+  border-color: #ffd700;
+  background: rgba(35, 25, 65, 0.85);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.45);
+}
+
+.p6-node.opened .p6-node-star {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 8px #ffd700);
+}
+
+/* Specific Node Positions */
+.p6-node-1 {
+  top: 15%;
+  left: 8%;
+}
+
+.p6-node-2 {
+  top: 44%;
+  right: 6%;
+}
+
+.p6-node-3 {
+  bottom: 12%;
+  left: 20%;
+}
+
+/* Final Reveal Container (Revealed after 3/3 thoughts opened) */
+.p6-final-reveal-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 360px;
+  animation: p6PopUp 0.7s var(--ease-out-expo) forwards;
+}
+
+.p6-final-line1 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+  text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+.p6-final-line2 {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 3.8vw, 1.05rem);
+  color: #e6e6fa;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+/* Modals & Overlays */
+.p6-modal-backdrop.hidden,
+.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.p6-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(6, 9, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  animation: p6FadeIn 0.35s ease forwards;
+}
+
+.p6-modal-card {
+  background: linear-gradient(160deg, rgba(23, 17, 44, 0.95) 0%, rgba(10, 15, 38, 0.98) 100%);
+  border: 1.5px solid rgba(230, 230, 250, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(180, 160, 235, 0.2);
+  border-radius: 28px;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+  animation: p6PopUp 0.4s var(--ease-out-expo) forwards;
+}
+
+.p6-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+/* Modal Body Text with Custom Internal Scroll for Long Message */
+.p6-modal-body {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #fff8e7;
+  margin-bottom: 1.75rem;
+  white-space: pre-line;
+  max-height: 52vh;
+  overflow-y: auto;
+  padding-right: 6px;
+  text-align: left;
+}
+
+.p6-modal-body::-webkit-scrollbar {
+  width: 4px;
+}
+.p6-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.35);
+  border-radius: 4px;
+}
+
+/* Action Buttons */
+.btn-p6-action {
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  border: 1px solid rgba(230, 230, 250, 0.35);
+  background: linear-gradient(135deg, rgba(180, 160, 235, 0.3), rgba(255, 215, 0, 0.2));
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  min-height: var(--min-touch-target);
+  min-width: 105px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.btn-p6-action:active {
+  transform: scale(0.95);
+}
+
+.btn-p6-next {
+  background: linear-gradient(135deg, #ffd700, #ffdf80);
+  color: #0a0f28;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Keyframe Animations */
+@keyframes p6NodeFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes p6FadeDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes p6FadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes p6PopUp {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}

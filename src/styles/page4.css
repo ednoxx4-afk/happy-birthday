@@ -1,0 +1,422 @@
+/* ==========================================
+   Page 4 - Interactive Birthday Gift Boxes & Celebration
+   Theme: Warm Birthday Aesthetic (Soft Pink, Blush Pink, Rose, Peach, Cream, Lavender, Champagne Gold)
+   ========================================== */
+
+.page4-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  padding: calc(var(--safe-area-top) + 1rem) 1.25rem calc(var(--safe-area-bottom) + 1.5rem);
+  box-sizing: border-box;
+  color: var(--color-cream-warm);
+  position: relative;
+  overflow-x: hidden;
+  z-index: 2;
+}
+
+/* Header Group */
+.p4-header-group {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  animation: p4FadeDown 0.8s var(--ease-out-expo) forwards;
+}
+
+.p4-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-pink-soft) 50%, var(--color-peach-warm) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.4rem 0;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 20px rgba(255, 133, 162, 0.3);
+}
+
+.p4-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 3.8vw, 1rem);
+  color: var(--color-pink-blush);
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Gift Boxes Layout Grid */
+.p4-boxes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
+}
+
+/* Center Box 5 in the grid across both columns */
+.p4-box-wrapper:nth-child(5) {
+  grid-column: span 2;
+  justify-self: center;
+  width: 75%;
+  max-width: 240px;
+}
+
+/* Base Present Box Style */
+.p4-box-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255, 211, 226, 0.25), rgba(244, 194, 194, 0.15));
+  border: 1.5px solid var(--glass-border-warm);
+  border-radius: 20px;
+  padding: 1.2rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 25px rgba(255, 133, 162, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s ease, border-color 0.25s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  animation: p4Float 4s ease-in-out infinite alternate;
+}
+
+.p4-box-card:nth-child(1) { animation-delay: 0s; }
+.p4-box-card:nth-child(2) { animation-delay: 0.8s; }
+.p4-box-card:nth-child(3) { animation-delay: 1.6s; }
+.p4-box-card:nth-child(4) { animation-delay: 2.4s; }
+.p4-box-card:nth-child(5) { animation-delay: 1.2s; }
+
+.p4-box-card:active {
+  transform: scale(0.94) !important;
+  box-shadow: 0 4px 12px rgba(255, 133, 162, 0.2);
+}
+
+/* Decorative Ribbon & Bow Elements */
+.p4-present-graphic {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #ffb6c1, #ff85a2);
+  border-radius: 14px;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 8px 18px rgba(255, 133, 162, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ribbon Wraps */
+.p4-ribbon-v {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 100%;
+  background: linear-gradient(to bottom, #fff8f0, #f7e7ce);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+.p4-ribbon-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(to right, #fff8f0, #f7e7ce);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+/* Bow Knot */
+.p4-bow {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  z-index: 3;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+}
+
+.p4-box-label {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Box 5 — SPECIAL GIFT Styling */
+.p4-box-special .p4-present-graphic {
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.p4-box-special {
+  background: linear-gradient(145deg, rgba(255, 215, 0, 0.25), rgba(255, 133, 162, 0.3));
+  border: 2px solid var(--color-gold-accent);
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.35);
+  animation: p4GlowPulse 2.5s ease-in-out infinite alternate, p4Float 4s ease-in-out infinite alternate;
+}
+
+.p4-box-special .p4-ribbon-v,
+.p4-box-special .p4-ribbon-h {
+  background: linear-gradient(to right, #ffffff, #ffe4b5);
+}
+
+.p4-box-special .p4-box-label {
+  color: #fffdd0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* Modal Backdrop & Overlays */
+.p4-modal-backdrop.hidden,
+.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.p4-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 8, 20, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  animation: p4FadeIn 0.35s ease forwards;
+}
+
+.p4-modal-card {
+  background: linear-gradient(160deg, rgba(45, 20, 35, 0.92) 0%, rgba(25, 10, 22, 0.95) 100%);
+  border: 1.5px solid var(--glass-border-warm);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 133, 162, 0.25);
+  border-radius: 28px;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+  animation: p4PopUp 0.4s var(--ease-out-expo) forwards;
+}
+
+/* Modal Message Content */
+.p4-message-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 4.8vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-cream-warm);
+  margin-bottom: 1.75rem;
+  word-break: break-word;
+  text-shadow: 0 2px 10px rgba(255, 133, 162, 0.3);
+}
+
+/* Button Group */
+.p4-modal-controls {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-p4-action {
+  padding: 0.8rem 1.6rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, rgba(255, 133, 162, 0.3), rgba(232, 141, 155, 0.4));
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  min-height: var(--min-touch-target);
+  min-width: 100px;
+  box-shadow: 0 6px 16px rgba(255, 133, 162, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-p4-action:active {
+  transform: scale(0.95);
+}
+
+.btn-p4-next {
+  background: linear-gradient(135deg, #d4af37, #f7e7ce);
+  color: #2d1423;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Tic-Tac-Toe Game Layout */
+.p4-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.p4-game-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-gold-champagne);
+  margin: 0 0 0.3rem 0;
+}
+
+.p4-game-sub {
+  font-size: 0.82rem;
+  color: var(--color-pink-blush);
+  margin-bottom: 1.2rem;
+}
+
+.p4-ttt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto 1.2rem;
+}
+
+.p4-ttt-cell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 72px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid var(--glass-border-warm);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.p4-ttt-cell:active {
+  transform: scale(0.93);
+}
+
+.p4-ttt-cell.mark-x {
+  color: #ff85a2;
+  text-shadow: 0 0 15px rgba(255, 133, 162, 0.8);
+}
+
+.p4-ttt-cell.mark-o {
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+.p4-game-status {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-cream-warm);
+  margin-bottom: 1rem;
+  min-height: 1.4rem;
+}
+
+/* Victory Fireworks Overlay */
+.p4-celebration-card {
+  background: linear-gradient(160deg, rgba(50, 15, 38, 0.95), rgba(30, 8, 24, 0.98));
+  border: 2px solid var(--color-gold-accent);
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.5), 0 20px 60px rgba(0, 0, 0, 0.6);
+  padding: 2.5rem 1.5rem;
+  animation: p4CelebratePop 0.6s var(--ease-out-expo) forwards;
+}
+
+.p4-celebration-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffe4b5, #ffd700, #ff85a2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.75rem;
+  animation: p4PulseTitle 1.8s ease-in-out infinite alternate;
+}
+
+.p4-celebration-sub {
+  font-size: 0.95rem;
+  color: var(--color-pink-soft);
+  margin-bottom: 1.8rem;
+  line-height: 1.4;
+}
+
+/* Keyframe Animations */
+@keyframes p4Float {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes p4GlowPulse {
+  0% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3); }
+  100% { box-shadow: 0 14px 40px rgba(212, 175, 55, 0.6); }
+}
+
+@keyframes p4FadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes p4FadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes p4PopUp {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes p4CelebratePop {
+  0% { opacity: 0; transform: scale(0.7) rotate(-3deg); }
+  70% { transform: scale(1.05) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes p4PulseTitle {
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4)); }
+  100% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
+}
+
+/* Mobile & Touch Adjustments */
+@media (max-height: 700px) {
+  .p4-boxes-grid {
+    gap: 0.8rem;
+  }
+  .p4-box-card {
+    padding: 0.8rem 0.5rem;
+  }
+  .p4-present-graphic {
+    width: 60px;
+    height: 60px;
+  }
+}

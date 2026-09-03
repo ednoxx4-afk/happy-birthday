@@ -1,0 +1,435 @@
+/* ==========================================
+   Page 7 — CAKE TIME 🍰
+   Theme: 'cake-playful' (Warm Vanilla Cream, Soft Butter Yellow, Strawberry Pink, Pastel Purple, Soft Mint, Peach, Gold)
+   ========================================== */
+
+body.theme-cake-playful {
+  background-color: #1a0b14;
+  color: #fff8f0;
+}
+
+body.theme-cake-playful .audio-badge {
+  background: rgba(45, 18, 32, 0.85);
+  border-color: rgba(255, 133, 162, 0.4);
+  box-shadow: 0 4px 20px rgba(255, 133, 162, 0.25);
+}
+
+body.theme-cake-playful .track-name {
+  color: #ffb6c1;
+}
+
+body.theme-cake-playful .equalizer .bar {
+  background-color: #ff85a2;
+}
+
+.page7-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  width: 100%;
+  padding: calc(var(--safe-area-top) + 0.8rem) 1.25rem calc(var(--safe-area-bottom) + 1.2rem);
+  box-sizing: border-box;
+  color: #fffdd0;
+  position: relative;
+  overflow-x: hidden;
+  z-index: 2;
+  background: radial-gradient(circle at 50% 30%, #3b1828 0%, #220e18 55%, #10050c 100%);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Background Floating Decorations */
+.p7-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.p7-balloon {
+  position: absolute;
+  font-size: clamp(1.8rem, 6vw, 2.5rem);
+  filter: drop-shadow(0 8px 16px rgba(255, 133, 162, 0.3));
+  animation: p7FloatUp 8s ease-in-out infinite alternate;
+}
+
+.p7-balloon-1 { top: 12%; left: 6%; animation-delay: 0s; }
+.p7-balloon-2 { top: 22%; right: 8%; animation-delay: 2.5s; }
+
+.p7-sparkle {
+  position: absolute;
+  font-size: 1.2rem;
+  opacity: 0.75;
+  animation: p7Twinkle 3s ease-in-out infinite alternate;
+}
+
+.p7-sparkle-1 { top: 18%; right: 22%; animation-delay: 0.5s; }
+.p7-sparkle-2 { bottom: 25%; left: 10%; animation-delay: 1.5s; }
+.p7-sparkle-3 { top: 45%; left: 8%; animation-delay: 2.8s; }
+
+/* Header & Dialogue Speech Bubble */
+.p7-header-area {
+  width: 100%;
+  max-width: 380px;
+  margin-top: 0.4rem;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.p7-speech-bubble {
+  width: 100%;
+  background: rgba(50, 20, 36, 0.78);
+  border: 1.5px solid rgba(255, 182, 193, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 133, 162, 0.2);
+  border-radius: 24px;
+  padding: 1.15rem 1.4rem;
+  text-align: center;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  position: relative;
+  animation: p7PopIn 0.6s var(--ease-out-expo) forwards;
+}
+
+.p7-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0 10px;
+  border-style: solid;
+  border-color: rgba(50, 20, 36, 0.78) transparent transparent transparent;
+}
+
+.p7-dialog-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.05rem, 4.5vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: #fffdd0;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(255, 133, 162, 0.3);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Intro Container */
+.p7-intro-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  gap: 1rem;
+  margin: auto 0;
+  z-index: 5;
+}
+
+.p7-intro-card {
+  background: rgba(35, 14, 25, 0.82);
+  border: 1px solid rgba(255, 182, 193, 0.25);
+  border-radius: 20px;
+  padding: 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  animation: p7PopUp 0.6s var(--ease-out-expo) forwards;
+}
+
+.p7-intro-sub {
+  font-size: 0.92rem;
+  color: #f8c8dc;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* Main Interactive Cake Stage */
+.p7-cake-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  z-index: 4;
+  margin: 0.6rem 0;
+}
+
+.p7-cake-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  touch-action: manipulation;
+}
+
+.p7-tap-hint {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffb6c1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 182, 193, 0.25);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.02em;
+  animation: p7Pulse 2s infinite alternate;
+}
+
+/* Progress Bar */
+.p7-eat-progress-bar {
+  width: 160px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(255, 182, 193, 0.2);
+}
+
+.p7-progress-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #ff85a2 0%, #ffd700 100%);
+  border-radius: 10px;
+  transition: width 0.25s var(--ease-out-expo);
+}
+
+/* Cake Viewport & Base Animations */
+.p7-cake-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s var(--ease-out-expo), filter 0.3s ease;
+  transform-origin: center bottom;
+  padding: 10px;
+}
+
+.p7-cake-wrapper.wobble {
+  animation: p7Wobble 0.4s ease-in-out;
+}
+
+/* Visual Bite Marks & Shrinking overlay effects */
+.p7-bite-particle {
+  position: absolute;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffd700;
+  pointer-events: none;
+  z-index: 20;
+  animation: p7NomFloat 0.7s ease-out forwards;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.p7-crumb {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 18;
+  animation: p7CrumbFly 0.6s ease-out forwards;
+}
+
+/* Dynamic SVG Cakes Styling */
+.p7-cake-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.5));
+  transition: all 0.3s ease;
+}
+
+/* Sizes for Cakes */
+.cake-size-1 {
+  width: clamp(140px, 42vw, 170px);
+}
+
+.cake-size-2 {
+  width: clamp(190px, 56vw, 230px);
+}
+
+.cake-size-3 {
+  width: clamp(250px, 72vw, 300px);
+}
+
+.cake-size-4 {
+  width: clamp(210px, 62vw, 260px);
+}
+
+/* Cake 4 Candle & Flame Mechanics */
+.p7-candle-container {
+  cursor: pointer;
+}
+
+.p7-candle-flame {
+  transform-origin: center bottom;
+  animation: p7FlameFlicker 0.15s ease-in-out infinite alternate;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.p7-candle-flame.extinguished {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.p7-smoke-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(230, 230, 250, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: p7SmokeRise 1.2s ease-out forwards;
+}
+
+/* Cake 4 Knife Cutting Mechanics */
+.p7-knife-wrapper {
+  position: absolute;
+  top: -40px;
+  right: -20px;
+  z-index: 25;
+  pointer-events: none;
+  opacity: 0;
+  transform: rotate(-45deg) translateY(-20px);
+  transition: all 0.6s var(--ease-out-expo);
+}
+
+.p7-knife-wrapper.slicing {
+  opacity: 1;
+  transform: rotate(0deg) translateY(60px);
+}
+
+/* 3D Cake Topper Stick "14" */
+.p7-topper-group {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.p7-topper-stick {
+  stroke: #d4af37;
+  stroke-width: 2.5;
+}
+
+.p7-topper-badge {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  fill: url(#goldGradient);
+  stroke: #fff8e7;
+  stroke-width: 0.8;
+  filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.6));
+}
+
+/* Bottom Controls Area */
+.p7-controls-area {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  margin-bottom: 0.4rem;
+  min-height: 60px;
+}
+
+.btn-p7-action {
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  background: linear-gradient(135deg, #ffd700 0%, #ff85a2 100%);
+  color: #1a0b14;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  min-height: var(--min-touch-target);
+  box-shadow: 0 8px 25px rgba(255, 133, 162, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-p7-action:active {
+  transform: scale(0.94);
+  box-shadow: 0 4px 12px rgba(255, 133, 162, 0.3);
+}
+
+.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Keyframe Animations */
+@keyframes p7PopIn {
+  from { opacity: 0; transform: scale(0.9) translateY(-10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes p7PopUp {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes p7Wobble {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(0.93) rotate(-5deg); }
+  50% { transform: scale(1.05) rotate(4deg); }
+  75% { transform: scale(0.97) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes p7NomFloat {
+  0% { opacity: 1; transform: translateY(0) scale(0.8); }
+  50% { opacity: 1; transform: translateY(-24px) scale(1.2); }
+  100% { opacity: 0; transform: translateY(-40px) scale(1); }
+}
+
+@keyframes p7CrumbFly {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx, 20px), var(--ty, -30px)) scale(0.2); }
+}
+
+@keyframes p7FlameFlicker {
+  0% { transform: scale(1) rotate(-2deg); }
+  100% { transform: scale(1.15) rotate(3deg); }
+}
+
+@keyframes p7SmokeRise {
+  0% { opacity: 0.8; transform: translate(0, 0) scale(0.8); }
+  100% { opacity: 0; transform: translate(var(--sx, 10px), -35px) scale(2); }
+}
+
+@keyframes p7FloatUp {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-15px) rotate(5deg); }
+}
+
+@keyframes p7Twinkle {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes p7Pulse {
+  0% { opacity: 0.75; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1.02); }
+}

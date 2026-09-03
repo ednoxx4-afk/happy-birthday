@@ -1,0 +1,525 @@
+/* Universal Mobile Reset & Prevents Overscroll / Text Selection on iPhone */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  background-color: var(--color-navy-dark);
+  font-family: var(--font-body);
+  color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Background Canvas Layer */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* App Main Stage Container */
+.app-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--safe-area-top);
+  padding-bottom: var(--safe-area-bottom);
+  padding-left: var(--safe-area-left);
+  padding-right: var(--safe-area-right);
+  overflow: hidden;
+}
+
+/* Screen Base Class & Transitions */
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96);
+  transition: opacity 0.8s var(--ease-out-expo), 
+              transform 0.8s var(--ease-out-expo),
+              visibility 0.8s step-end;
+  will-change: opacity, transform, visibility;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: opacity 0.8s var(--ease-out-expo), 
+              transform 0.8s var(--ease-out-expo),
+              visibility 0s step-start;
+}
+
+.screen.exit {
+  opacity: 0;
+  transform: scale(1.04);
+  visibility: hidden;
+  transition: opacity 0.7s var(--ease-in-out-smooth), 
+              transform 0.7s var(--ease-in-out-smooth),
+              visibility 0.7s step-end;
+}
+
+/* Minimalist Interactive Audio Badge Indicator in Top Right Corner */
+.audio-badge {
+  position: fixed;
+  top: calc(var(--safe-area-top) + 12px);
+  right: 16px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(6, 9, 19, 0.75);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  border-radius: 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 242, 254, 0.2);
+  cursor: pointer;
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.25s var(--ease-out-expo),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease,
+              opacity 0.5s ease;
+  min-height: 40px;
+}
+
+.audio-badge:hover {
+  transform: translateY(-2px) scale(1.03);
+  border-color: rgba(0, 242, 254, 0.6);
+  box-shadow: 0 6px 24px rgba(0, 242, 254, 0.35);
+}
+
+.audio-badge:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.audio-badge.locked {
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
+}
+
+.audio-badge.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+
+.track-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-cyan-soft);
+  letter-spacing: 0.5px;
+  max-width: 190px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Animated Equalizer Bars */
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 12px;
+}
+
+.equalizer .bar {
+  width: 2.5px;
+  background-color: var(--color-cyan);
+  border-radius: 1px;
+  animation: bounce 1.2s ease-in-out infinite alternate;
+}
+
+.equalizer .bar:nth-child(1) { height: 60%; animation-delay: 0.1s; }
+.equalizer .bar:nth-child(2) { height: 100%; animation-delay: 0.3s; }
+.equalizer .bar:nth-child(3) { height: 40%; animation-delay: 0.2s; }
+
+.equalizer.paused .bar {
+  animation-play-state: paused;
+  height: 25% !important;
+}
+
+@keyframes bounce {
+  0% { height: 25%; }
+  100% { height: 100%; }
+}
+
+/* ==========================================================================
+   Music Selector Modal & Compact Glass Menu (Mobile & Desktop)
+   ========================================================================== */
+.music-selector-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: calc(var(--safe-area-top) + 60px) 16px 20px 16px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out-expo);
+}
+
+.music-selector-container.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.music-selector-container.hidden {
+  display: none;
+}
+
+.music-selector-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(6, 9, 19, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.music-selector-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  background: rgba(10, 17, 40, 0.85);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  border-radius: 20px;
+  padding: 1.25rem;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(0, 242, 254, 0.15);
+  transform: translateY(-12px) scale(0.95);
+  transition: transform 0.35s var(--ease-out-expo);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.music-selector-container.visible .music-selector-card {
+  transform: translateY(0) scale(1);
+}
+
+.music-selector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.header-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-icon {
+  font-size: 1.1rem;
+}
+
+.header-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-white);
+  letter-spacing: 0.3px;
+}
+
+.selector-close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--color-white-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.selector-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  transform: scale(1.08);
+}
+
+.music-selector-controls {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.play-pause-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(0, 242, 254, 0.12);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  border-radius: 16px;
+  color: var(--color-cyan);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.play-pause-toggle-btn:hover {
+  background: rgba(0, 242, 254, 0.25);
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+}
+
+.track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Custom Scrollbar for track list */
+.track-list::-webkit-scrollbar {
+  width: 4px;
+}
+.track-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 242, 254, 0.25);
+  border-radius: 4px;
+}
+
+.track-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out-expo);
+  min-height: 52px;
+}
+
+.track-item:hover {
+  background: rgba(0, 242, 254, 0.08);
+  border-color: rgba(0, 242, 254, 0.25);
+  transform: translateX(3px);
+}
+
+.track-item.active {
+  background: rgba(0, 242, 254, 0.15);
+  border-color: var(--color-cyan);
+  box-shadow: 0 4px 16px rgba(0, 242, 254, 0.2);
+}
+
+.track-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.track-num {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-cyan-soft);
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.track-title-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-item.active .track-title-text {
+  color: var(--color-cyan);
+}
+
+.track-artist-text {
+  font-size: 0.72rem;
+  color: var(--color-white-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.play-arrow {
+  font-size: 0.75rem;
+  color: var(--color-white-dim);
+  opacity: 0.7;
+}
+
+.track-item:hover .play-arrow {
+  color: var(--color-cyan);
+  opacity: 1;
+}
+
+/* Mini Equalizer inside selector list */
+.mini-equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.mini-equalizer .m-bar {
+  width: 2.5px;
+  background-color: var(--color-cyan);
+  border-radius: 1px;
+  animation: bounce 1s ease-in-out infinite alternate;
+}
+
+.mini-equalizer .m-bar:nth-child(1) { height: 50%; animation-delay: 0.1s; }
+.mini-equalizer .m-bar:nth-child(2) { height: 100%; animation-delay: 0.25s; }
+.mini-equalizer .m-bar:nth-child(3) { height: 60%; animation-delay: 0.15s; }
+
+.mini-equalizer.paused .m-bar {
+  animation-play-state: paused;
+  height: 25% !important;
+}
+
+.music-selector-footer {
+  text-align: center;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-hint {
+  font-size: 0.7rem;
+  color: var(--color-white-dim);
+  letter-spacing: 0.3px;
+}
+
+/* Locked Finale Section Notice */
+.locked-section-notice {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.lock-icon-lg {
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+.lock-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffd700;
+}
+
+.lock-subtitle {
+  font-size: 0.78rem;
+  color: var(--color-white-muted);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Page 3+ Birthday Warm Aesthetic Base Utility (Architectural Setup)
+   ========================================================================== */
+body.theme-birthday-warm {
+  background-color: #1a0b12;
+  color: var(--color-cream-warm);
+}
+
+body.theme-birthday-warm .audio-badge {
+  background: var(--glass-bg-warm);
+  border-color: var(--glass-border-warm);
+  box-shadow: var(--glass-shadow-warm);
+}
+
+body.theme-birthday-warm .track-name {
+  color: var(--color-pink-blush);
+}
+
+body.theme-birthday-warm .equalizer .bar {
+  background-color: var(--color-rose-soft);
+}
+
+body.theme-birthday-warm .music-selector-card {
+  background: rgba(35, 15, 25, 0.9);
+  border-color: var(--glass-border-warm);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 182, 193, 0.2);
+}
+
+body.theme-birthday-warm .track-item.active {
+  background: rgba(232, 141, 155, 0.2);
+  border-color: var(--color-rose-soft);
+  box-shadow: 0 4px 16px rgba(232, 141, 155, 0.25);
+}
+
+body.theme-birthday-warm .track-item.active .track-title-text {
+  color: var(--color-pink-blush);
+}
+
+body.theme-birthday-warm .play-pause-toggle-btn {
+  background: rgba(232, 141, 155, 0.15);
+  border-color: rgba(232, 141, 155, 0.35);
+  color: var(--color-pink-blush);
+}
+
